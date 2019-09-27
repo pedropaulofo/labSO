@@ -10,10 +10,17 @@
 class LRU:
 
   def __init__(self):
-    pass
+    self.allocatedFrames = []
+    self.lastUse = []
 
   def put(self, frameId):
-    pass
+    self.lastUse = [use + 1 for use in self.lastUse]
+    if(frameId not in self.allocatedFrames)
+      self.allocatedFrames.append(frameId)
+      self.lastUse.append(0)
+    else:
+      pos = self.allocatedFrames.index(frameId)
+      self.lastUse[pos] = 0
 
   def evict(self):
     pass
