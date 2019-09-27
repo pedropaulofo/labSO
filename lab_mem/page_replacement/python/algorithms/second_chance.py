@@ -10,10 +10,18 @@
 class SecondChance:
 
   def __init__(self):
-    pass
+    self.allocatedFrames = [] #frames
+    self.second_chance = []   #boolean list
+    self.pointer = 0
 
   def put(self, frameId):
-    pass
+    if(frameId not in self.allocatedFrames)
+      self.allocatedFrames.append(frameId)
+      self.second_chance.append(False)
+    else:
+      pos = self.allocatedFrames.index(frameId)
+      self.second_chance[pos] = True
+
 
   def evict(self):
     pass
