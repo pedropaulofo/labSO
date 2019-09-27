@@ -10,16 +10,19 @@
 class FIFO:
 
   def __init__(self):
-    pass
+    from Queue import Queue
+    self.fila = Queue()
 
   def put(self, frameId):
-    pass
+    self.fila.put(frameId)
 
   def evict(self):
-    pass
+    return self.fila.get()
 
   def clock(self):
+    # not necessary for FIFO
     pass
 
   def access(self, frameId, isWrite):
+    # not necessary for FIFO
     pass
