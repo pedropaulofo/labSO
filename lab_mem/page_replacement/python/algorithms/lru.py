@@ -10,23 +10,22 @@
 class LRU:
 
   def __init__(self):
-    self.allocatedFrames = []
-    self.lastUse = []
+    self.frames = []
 
   def put(self, frameId):
-    self.lastUse = [use + 1 for use in self.lastUse]
-    if(frameId not in self.allocatedFrames)
-      self.allocatedFrames.append(frameId)
-      self.lastUse.append(0)
-    else:
-      pos = self.allocatedFrames.index(frameId)
-      self.lastUse[pos] = 0
-
-  def evict(self):
-    pass
+    self.frames.append(frameId)
 
   def clock(self):
     pass
-
+  
+  def evict(self):
+    frameId = self.frames[0]
+    self.frames.pop(0)
+    return frameId
+  
   def access(self, frameId, isWrite):
-    pass
+    for i in xrange(len(self.frames)):
+      if self.frames[i] == frameId:
+        actFrameId = self.frames[i]
+        self.frames.pop(i)
+        self.frames.append(actFrameId)

@@ -11,23 +11,31 @@ class SecondChance:
 
   def __init__(self):
     self.allocatedFrames = [] #frames
-    self.second_chance = []   #boolean list
+    self.secondChance = []   #boolean list
     self.pointer = 0
 
   def put(self, frameId):
-    if(frameId not in self.allocatedFrames)
+    if(frameId not in self.allocatedFrames):
       self.allocatedFrames.append(frameId)
-      self.second_chance.append(False)
+      self.secondChance.append(False)
     else:
       pos = self.allocatedFrames.index(frameId)
-      self.second_chance[pos] = True
+      self.secondChance[pos] = True
 
 
   def evict(self):
-    pass
+    while True:
+      if(self.secondChance[self.pointer] == 0):
+        return self.allocatedFrames.pop(self.pointer)
+      self.secondChance[self.pointer] = 0
+      self.pointer = (self.pointer + 1) % len(self.allocatedFrames)
 
   def clock(self):
     pass
 
-  def access(self, frameId, isWrite):
-    pass
+  def access(self,frameId,isWrite):
+    for i in range(len(self.allocatedFrames)):
+      if(frameId == self.allocatedFrames[i]):
+        self.secondChance[i] = 1
+        break
+    

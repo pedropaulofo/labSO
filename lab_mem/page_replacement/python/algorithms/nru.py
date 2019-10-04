@@ -10,16 +10,32 @@
 class NRU:
 
   def __init__(self):
-    pass
+    self.frames = {}
 
-  def put(self, frameId):
-    pass
-
+  def put(self, frameId):  
+    if not self.frames.has_key(frameId):
+      self.frames[frameId] = [0,0]
+  
   def evict(self):
-    pass
-
+    actLowestPrio = 4
+    evictFrame = -1
+    for key in self.frames.keys():
+      act = self.frames[key]
+      if act[0]*2 + act[1] <= actLowestPrio:
+        actLowestPrio = act[0]*2 + act[1]
+        evictFrame = key
+    if self.frames.has_key(evictFrame):
+      self.frames.pop(evictFrame)
+    return evictFrame
+  
   def clock(self):
-    pass
-
+    for key in self.frames.keys():
+      self.frames[key] = [0,self.frames[key][1]]
+  
   def access(self, frameId, isWrite):
-    pass
+    if self.frames.has_key(frameId):
+      if isWrite: 
+        self.frames[frameId] = [1,1]
+      else:
+        self.frames[frameId] = [1, self.frames[frameId][1]]
+
